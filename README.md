@@ -37,5 +37,4 @@ My work combines analytics, storytelling, and problem-solving to help organizati
 ---
 ## ⚡ Fun Fact
 I believe data is not just numbers—it’s a tool for better decision-making and real-world impact.
-<img width="1468" height="1436" alt="image" src="https://github.com/user-attachments/assets/d759478f-26f1-430f-9ded-6ffd3afb22b6" />
 
