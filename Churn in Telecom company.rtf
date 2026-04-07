@@ -1,0 +1,138 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww29200\viewh16320\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 select * from "memory"."Telco.csv";\
+\
+CREATE TABLE telco AS\
+SELECT *\
+FROM "memory"."telco.csv";\
+\
+SELECT count(*)\
+FROM telco\
+WHERE churn IS NULL;\
+\
+SELECT count(*)\
+FROM telco\
+WHERE state IS not NULL;\
+\
+DELETE FROM telco\
+WHERE state IS NULL;\
+\
+--ANALYSIS\
+--Total Customer\
+SELECT COUNT(*) AS total_customers\
+FROM telco;\
+\
+-- Churn Rate\
+SELECT \
+  COUNT(CASE WHEN churn = 'Yes' THEN 1 END) * 100.0 / COUNT(*) AS churn_rate\
+FROM telco;\
+\
+--Churn by International Plan Type\
+SELECT \
+  CASE \
+    WHEN international_plan = 'yes' THEN 'International Plan'\
+    ELSE 'Not International Plan'\
+  END AS plan_type,\
+  COUNT(*) AS total_customers,\
+  SUM(CASE WHEN churn = 'True' THEN 1 ELSE 0 END) AS churned_customers\
+FROM telco\
+GROUP BY plan_type;\
+\
+--Churn Rate by International Plan Type\
+SELECT \
+  CASE \
+    WHEN international_plan = 'yes' THEN 'International Plan'\
+    ELSE 'Not International Plan'\
+  END AS plan_type,\
+  COUNT(*) AS total_customers,\
+  SUM(CASE WHEN churn = 'True' THEN 1 ELSE 0 END) AS churned_customers,\
+  SUM(CASE WHEN churn = 'True' THEN 1 ELSE 0 END) * 100.0 / COUNT(*) AS churn_rate\
+FROM telco\
+GROUP BY plan_type;\
+\
+--Churn by voice mail plan\
+SELECT \
+  CASE \
+    WHEN voice_mail_plan = 'yes' THEN 'Voice Mail Plan'\
+    ELSE 'Not Voice Mail Plan'\
+  END AS plan_type,\
+  COUNT(*) AS total_customers,\
+  SUM(CASE WHEN churn = 'True' THEN 1 ELSE 0 END) AS churned_customers\
+FROM telco\
+GROUP BY plan_type;\
+\
+--Churn Rate by voice mail plan\
+SELECT \
+  CASE \
+    WHEN voice_mail_plan = 'yes' THEN 'Voice Mail Plan'\
+    ELSE 'Not Voice Mail Plan'\
+  END AS plan_type,\
+  COUNT(*) AS total_customers,\
+  SUM(CASE WHEN churn = 'True' THEN 1 ELSE 0 END) AS churned_customers,\
+  SUM(CASE WHEN churn = 'True' THEN 1 ELSE 0 END) * 100.0 / COUNT(*) AS churn_rate\
+FROM telco\
+GROUP BY plan_type;\
+\
+--Customer Service Calls\
+SELECT \
+  number_customer_service_calls,\
+  COUNT(*) AS total,\
+  SUM(CASE WHEN churn = 'True' THEN 1 ELSE 0 END) AS churned\
+FROM telco\
+GROUP BY number_customer_service_calls\
+ORDER BY number_customer_service_calls;\
+\
+--Usage vs Churn\
+SELECT \
+  churn,\
+  AVG(total_day_minutes) AS avg_day_minutes,\
+  AVG(total_eve_minutes) AS avg_evening_minutes,\
+  AVG(total_night_minutes) AS avg_night_minutes\
+FROM telco\
+GROUP BY churn;\
+\
+--Revenue Impact -wE USED DOUBLE BECAUSE ONE OF THE COLOMNS IS IN TEXT\
+SELECT \
+  churn,\
+  AVG(total_charge) AS avg_total_charge\
+FROM (\
+  SELECT \
+    churn,\
+    CAST(total_day_charge AS DOUBLE) +\
+    CAST(total_eve_charge AS DOUBLE) +\
+    CAST(total_night_charge AS DOUBLE) +\
+    CAST(total_intl_charge AS DOUBLE) AS total_charge\
+  FROM telco\
+) t\
+GROUP BY churn;\
+\
+SELECT \
+  CASE \
+    WHEN international_plan = 'yes' THEN 'International Plan'\
+    ELSE 'Not International Plan'\
+  END AS plan_type,\
+  COUNT(*) AS total_customers,\
+  SUM(CASE WHEN churn = 'True' THEN 1 ELSE 0 END) AS churned_customers\
+FROM telco\
+GROUP BY plan_type;\
+\
+SELECT \
+  CASE \
+    WHEN international_plan = 'yes' THEN 'International Plan'\
+    ELSE 'Not International Plan'\
+  END AS plan_type,\
+  COUNT(*) AS total_customers,\
+  SUM(CASE WHEN churn = 'True' THEN 1 ELSE 0 END) AS churned_customers\
+FROM telco\
+GROUP BY plan_type;\
+SELECT \
+  voice_mail_plan,\
+  COUNT(*) AS total,\
+  SUM(CASE WHEN churn = 'True' THEN 1 ELSE 0 END) AS churned\
+FROM telco\
+GROUP BY voice_mail_plan;}
