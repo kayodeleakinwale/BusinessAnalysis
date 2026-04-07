@@ -17,7 +17,7 @@ My work combines analytics, storytelling, and problem-solving to help organizati
 - Discovered that international plan users are **3x more likely to churn**
 - Identified bundled services (voice mail plans) as a key retention driver
 - Built an interactive dashboard using Tableau
-👉 [View Project](https://github.com/YOUR-USERNAME/customer-churn-analysis-dashboard)
+👉 [View Project](https://github.com/kayodeleakinwale/customer-churn-analysis-dashboard)
 ---
 ## 🛠 Tools & Technologies
 - Excel  
@@ -33,7 +33,7 @@ My work combines analytics, storytelling, and problem-solving to help organizati
 ---
 ## 🤝 Let's Connect
 - LinkedIn: http://www.linkedin.com/in/dr-ayodele-akinwale  
-- GitHub: https://github.com/YOUR-USERNAME  
+- GitHub: https://github.com/kayodeleakinwale  
 ---
 ## ⚡ Fun Fact
 I believe data is not just numbers—it’s a tool for better decision-making and real-world impact.
